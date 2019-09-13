@@ -138,6 +138,8 @@
     <None Include="packages.config" />
     <None Include="src\shaders\shader.frag" />
     <None Include="src\shaders\shader.vert" />
+    <None Include="src\shaders\skybox.frag" />
+    <None Include="src\shaders\skybox.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\cube.h" />

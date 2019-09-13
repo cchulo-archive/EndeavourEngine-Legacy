@@ -2,12 +2,16 @@
 
 #define VERTEX_SHADER_PATH "src/shaders/shader.vert"
 #define FRAGMENT_SHADER_PATH "src/shaders/shader.frag"
+#define SKYBOX_VERTEX_SHADER_PATH "src/shaders/skybox.vert"
+#define SKYBOX_FRAG_SHADER_PATH "src/shaders/skybox.frag"
 
 GLFWwindow* gameWindow;
 
 
 Cube* cube;
+Skybox* skybox;
 GLuint shaderProgram;
+GLuint skyboxShaderProgram;
 
 // TODO: these values should be moved out to player class
 glm::mat4 Window::P;
@@ -24,7 +28,9 @@ void Window::CleanUp() {
 	glfwTerminate();
 
 	delete(cube);
+	delete(skybox);
 	glDeleteProgram(shaderProgram);
+	glDeleteProgram(skyboxShaderProgram);
 }
 
 void Window::Loop() {
@@ -33,6 +39,8 @@ void Window::Loop() {
 
 		glUseProgram(shaderProgram);
 		cube->Draw(shaderProgram);
+		glUseProgram(skyboxShaderProgram);
+		skybox->Draw(skyboxShaderProgram);
 		cube->Update();
 
 		glfwPollEvents();
@@ -43,8 +51,10 @@ void Window::Loop() {
 void Window::InitObjects() {
 
 	shaderProgram = Shader::LoadShaders(VERTEX_SHADER_PATH, FRAGMENT_SHADER_PATH);
+	skyboxShaderProgram = Shader::LoadShaders(SKYBOX_VERTEX_SHADER_PATH, SKYBOX_FRAG_SHADER_PATH);
 
 	cube = new Cube();
+	skybox = new Skybox;
 }
 
 bool Window::CanInitialize() {
@@ -148,7 +158,7 @@ void Window::ResizeCallback(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);
 
 	if (height > 0) {
-		P = glm::perspective(45.0f, (float)width / (float)height, 0.1f, 1000.0f);
+		P = glm::perspective(45.0f, (float)width / (float)height, 0.1f, 5000.0f);
 		V = glm::lookAt(CamPos, CamLookAt, CamUp);
 	}
 

@@ -5,6 +5,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <vector>
 #include <string>
+#include <soil.h>
+#include "window.h"
 
 class Skybox {
 public:
@@ -41,16 +43,17 @@ public:
 
 	const std::vector<std::string> faceTextures =
 	{
-		"resources/ashcanyon_rt.ppm",
-		"resources/ashcanyon_lf.ppm",
-		"resources/ashcanyon_up.ppm",
-		"resources/ashcanyon_dn.ppm",
-		"resources/ashcanyon_bk.ppm",
-		"resources/ashcanyon_ft.ppm",
+		"src/textures/skybox/bluecloud_rt.jpg",
+		"src/textures/skybox/bluecloud_lf.jpg",
+		"src/textures/skybox/bluecloud_up.jpg",
+		"src/textures/skybox/bluecloud_dn.jpg",
+		"src/textures/skybox/bluecloud_bk.jpg",
+		"src/textures/skybox/bluecloud_ft.jpg",
 	};
 
-	void draw(GLuint);
-	unsigned char* loadPPM(const char* filename, int& width, int& height);
-	GLuint loadCubemap();
+	void Draw(GLuint);
+
+private:
+	GLuint LoadCubemap();
 
 };

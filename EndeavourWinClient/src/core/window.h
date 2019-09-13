@@ -10,6 +10,7 @@
 
 #include "../shaders/shader.h"
 #include "cube.h"
+#include "skybox.h"
 
 
 
