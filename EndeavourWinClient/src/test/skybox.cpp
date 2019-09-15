@@ -53,6 +53,8 @@ void Skybox::Draw(GLuint shaderProgram) {
 	glDepthMask(GL_TRUE);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 	
+
+	glDisable(GL_CULL_FACE);
 	glBindVertexArray(0);
 }
 

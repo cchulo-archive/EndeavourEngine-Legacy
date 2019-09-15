@@ -1,4 +1,4 @@
-#include "core/window.h"
+#include "test/window.h"
 
 int main() {	
 	if (!Window::CanInitialize()) {

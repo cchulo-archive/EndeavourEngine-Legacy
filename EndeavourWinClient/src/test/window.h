@@ -8,10 +8,6 @@
 
 #define GLFW_INCLUDE_GLEXT
 
-#include "../shaders/shader.h"
-#include "cube.h"
-#include "skybox.h"
-
 
 
 class Window
@@ -42,9 +38,9 @@ public:
 	static int Height;
 
 	static bool CanInitialize();
-	static void CleanUp();
 	static GLFWwindow* GenerateWindow(int width, int height, const char* title);
 	static void Loop();
+	static void CleanUp();
 	static void SetupCallbacks();
 	static bool SetupOpenGL();
 	

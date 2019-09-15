@@ -20,50 +20,64 @@
     <None Include="src\shaders\shader.vert" />
     <None Include="src\shaders\skybox.frag" />
     <None Include="src\shaders\skybox.vert" />
+    <None Include="src\shaders\textured_shader.frag" />
+    <None Include="src\shaders\textured_shader.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\cube.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\shaders\shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\skybox.cpp">
+    <ClCompile Include="src\textures\texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\player.cpp">
+    <ClCompile Include="src\test\camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\camera.cpp">
+    <ClCompile Include="src\test\cube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test\player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test\quad.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test\skybox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\core\window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\node.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\cube.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\shaders\shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\skybox.h">
+    <ClInclude Include="src\textures\texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\player.h">
+    <ClInclude Include="src\test\camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\camera.h">
+    <ClInclude Include="src\test\cube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\quad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\skybox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -84,6 +98,33 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="src\textures\skybox\space_up.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\textures\general\test.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\textures\skybox\bluecloud_bk.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\textures\skybox\bluecloud_dn.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\textures\skybox\bluecloud_ft.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\textures\skybox\bluecloud_lf.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\textures\skybox\bluecloud_rt.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\textures\skybox\bluecloud_up.bak.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\textures\skybox\bluecloud_up.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\textures\skybox\space_up.bak.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

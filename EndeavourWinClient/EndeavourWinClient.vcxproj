@@ -128,13 +128,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\core\camera.cpp" />
-    <ClCompile Include="src\core\cube.cpp" />
-    <ClCompile Include="src\core\player.cpp" />
-    <ClCompile Include="src\core\skybox.cpp" />
+    <ClCompile Include="src\test\camera.cpp" />
+    <ClCompile Include="src\test\cube.cpp" />
+    <ClCompile Include="src\test\player.cpp" />
+    <ClCompile Include="src\test\quad.cpp" />
+    <ClCompile Include="src\test\skybox.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\core\window.cpp" />
+    <ClCompile Include="src\test\window.cpp" />
     <ClCompile Include="src\shaders\shader.cpp" />
+    <ClCompile Include="src\textures\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -142,22 +144,35 @@
     <None Include="src\shaders\shader.vert" />
     <None Include="src\shaders\skybox.frag" />
     <None Include="src\shaders\skybox.vert" />
+    <None Include="src\shaders\textured_shader.frag" />
+    <None Include="src\shaders\textured_shader.vert" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\core\camera.h" />
-    <ClInclude Include="src\core\cube.h" />
-    <ClInclude Include="src\core\node.h" />
-    <ClInclude Include="src\core\player.h" />
-    <ClInclude Include="src\core\skybox.h" />
-    <ClInclude Include="src\core\window.h" />
+    <ClInclude Include="src\test\camera.h" />
+    <ClInclude Include="src\test\cube.h" />
+    <ClInclude Include="src\test\node.h" />
+    <ClInclude Include="src\test\player.h" />
+    <ClInclude Include="src\test\quad.h" />
+    <ClInclude Include="src\test\skybox.h" />
+    <ClInclude Include="src\test\window.h" />
     <ClInclude Include="src\shaders\shader.h" />
+    <ClInclude Include="src\textures\texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="src\textures\general\test.png" />
+    <Image Include="src\textures\skybox\bluecloud_bk.jpg" />
+    <Image Include="src\textures\skybox\bluecloud_dn.jpg" />
+    <Image Include="src\textures\skybox\bluecloud_ft.jpg" />
+    <Image Include="src\textures\skybox\bluecloud_lf.jpg" />
+    <Image Include="src\textures\skybox\bluecloud_rt.jpg" />
+    <Image Include="src\textures\skybox\bluecloud_up.bak.jpg" />
+    <Image Include="src\textures\skybox\bluecloud_up.jpg" />
     <Image Include="src\textures\skybox\space_bk.png" />
     <Image Include="src\textures\skybox\space_dn.png" />
     <Image Include="src\textures\skybox\space_ft.png" />
     <Image Include="src\textures\skybox\space_lf.png" />
     <Image Include="src\textures\skybox\space_rt.png" />
+    <Image Include="src\textures\skybox\space_up.bak.png" />
     <Image Include="src\textures\skybox\space_up.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

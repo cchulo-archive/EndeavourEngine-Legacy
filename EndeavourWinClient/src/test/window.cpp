@@ -1,9 +1,18 @@
 #include "window.h"
 
+#include "../shaders/shader.h"
+#include "../textures/texture.h"
+#include "cube.h"
+#include "skybox.h"
+
 #define VERTEX_SHADER_PATH "src/shaders/shader.vert"
 #define FRAGMENT_SHADER_PATH "src/shaders/shader.frag"
 #define SKYBOX_VERTEX_SHADER_PATH "src/shaders/skybox.vert"
 #define SKYBOX_FRAG_SHADER_PATH "src/shaders/skybox.frag"
+#define TEXTURED_VERTEX_SHADER_PATH "src/shaders/textured_shader.vert"
+#define TEXTURED_FRAGMENT_SHADER_PATH "src/shaders/textured_shader.frag"
+
+#define TEST_TEXTURE "src/textures/general/test.png"
 
 GLFWwindow* gameWindow;
 
@@ -12,7 +21,10 @@ Cube* cube;
 Skybox* skybox;
 GLuint shaderProgram;
 GLuint skyboxShaderProgram;
+GLuint texturedProgram;
 GLfloat deltaTime;
+
+GLuint testTexture;
 
 // TODO: these values should be moved out to player class
 glm::mat4 Window::P;
@@ -40,6 +52,19 @@ void Window::CleanUp() {
 	delete(skybox);
 	glDeleteProgram(shaderProgram);
 	glDeleteProgram(skyboxShaderProgram);
+	glDeleteProgram(texturedProgram);
+	glDeleteTextures(1, &testTexture);
+}
+
+void Window::InitObjects() {
+
+	shaderProgram = Shader::LoadShaders(VERTEX_SHADER_PATH, FRAGMENT_SHADER_PATH);
+	skyboxShaderProgram = Shader::LoadShaders(SKYBOX_VERTEX_SHADER_PATH, SKYBOX_FRAG_SHADER_PATH);
+	texturedProgram = Shader::LoadShaders(TEXTURED_VERTEX_SHADER_PATH, TEXTURED_FRAGMENT_SHADER_PATH);
+	testTexture = Texture::LoadTexture(TEST_TEXTURE);
+
+	cube = new Cube();
+	skybox = new Skybox;
 }
 
 void Window::Loop() {
@@ -49,15 +74,11 @@ void Window::Loop() {
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		glUseProgram(texturedProgram);
+		cube->Draw(texturedProgram, testTexture);
 		
-
-		glUseProgram(shaderProgram);
-		cube->Draw(shaderProgram);
 		glUseProgram(skyboxShaderProgram);
 		skybox->Draw(skyboxShaderProgram);
-		cube->Update();
-
-		
 
 		glfwPollEvents();
 		glfwSwapBuffers(gameWindow);
@@ -69,14 +90,7 @@ void Window::Loop() {
 	}
 }
 
-void Window::InitObjects() {
 
-	shaderProgram = Shader::LoadShaders(VERTEX_SHADER_PATH, FRAGMENT_SHADER_PATH);
-	skyboxShaderProgram = Shader::LoadShaders(SKYBOX_VERTEX_SHADER_PATH, SKYBOX_FRAG_SHADER_PATH);
-
-	cube = new Cube();
-	skybox = new Skybox;
-}
 
 bool Window::CanInitialize() {
 	if (glfwInit()) {
