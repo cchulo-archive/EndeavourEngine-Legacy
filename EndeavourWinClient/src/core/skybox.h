@@ -43,12 +43,12 @@ public:
 
 	const std::vector<std::string> faceTextures =
 	{
-		"src/textures/skybox/bluecloud_rt.jpg",
-		"src/textures/skybox/bluecloud_lf.jpg",
-		"src/textures/skybox/bluecloud_up.jpg",
-		"src/textures/skybox/bluecloud_dn.jpg",
-		"src/textures/skybox/bluecloud_bk.jpg",
-		"src/textures/skybox/bluecloud_ft.jpg",
+		"src/textures/skybox/space_rt.png",
+		"src/textures/skybox/space_lf.png",
+		"src/textures/skybox/space_up.png",
+		"src/textures/skybox/space_dn.png",
+		"src/textures/skybox/space_bk.png",
+		"src/textures/skybox/space_ft.png",
 	};
 
 	void Draw(GLuint);

@@ -12,16 +12,25 @@ Cube* cube;
 Skybox* skybox;
 GLuint shaderProgram;
 GLuint skyboxShaderProgram;
+GLfloat deltaTime;
 
 // TODO: these values should be moved out to player class
 glm::mat4 Window::P;
 glm::mat4 Window::V;
 glm::vec3 CamPos(0.0f, 0.0f, 20.0f);	// e  | Position of camera
-glm::vec3 CamLookAt(0.0f, 0.0f, 0.0f);	// d  | This is where the camera looks at
+glm::vec3 CamLookAt(0.0f, 0.0f, -1.0f);	// d  | This is where the camera looks at
 glm::vec3 CamUp(0.0f, 1.0f, 0.0f);		// up | What orientation "up" is
+
+GLfloat yaw = -90;
+GLfloat pitch = 0;
+
+GLfloat lastX, lastY;
 
 int Window::Width;
 int Window::Height;
+
+
+
 
 void Window::CleanUp() {
 	glfwDestroyWindow(gameWindow);
@@ -34,8 +43,13 @@ void Window::CleanUp() {
 }
 
 void Window::Loop() {
+	glfwSetInputMode(gameWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	float lastFrame = glfwGetTime();
 	while (!glfwWindowShouldClose(gameWindow)) {
+		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		
 
 		glUseProgram(shaderProgram);
 		cube->Draw(shaderProgram);
@@ -43,8 +57,15 @@ void Window::Loop() {
 		skybox->Draw(skyboxShaderProgram);
 		cube->Update();
 
+		
+
 		glfwPollEvents();
 		glfwSwapBuffers(gameWindow);
+
+		float currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+		ProcessInput(gameWindow);
 	}
 }
 
@@ -78,6 +99,9 @@ GLFWwindow* Window::GenerateWindow(int width, int height, const char* title) {
 		glfwTerminate();
 		return nullptr;
 	}
+
+	lastX = width / 2.f;
+	lastY = height / 2.f;
 
 	glfwMakeContextCurrent(gameWindow);
 
@@ -128,6 +152,7 @@ void Window::SetupCallbacks() {
 	glfwSetMouseButtonCallback(gameWindow, MouseButtonCallback);
 	glfwSetFramebufferSizeCallback(gameWindow, ResizeCallback);
 	glfwSetScrollCallback(gameWindow, ScrollCallback);
+	glfwSetCursorPosCallback(gameWindow, MouseCallback);
 }
 
 void Window::ErrorCallback(int error, const char* description) {
@@ -138,17 +163,80 @@ void Window::KeyCallback(GLFWwindow* window, int key, int scancode, int action, 
 	if (action == GLFW_PRESS) {
 		switch (key) {
 		
-		case GLFW_KEY_ESCAPE:
-			glfwSetWindowShouldClose(gameWindow, GL_TRUE);
-			break;
+			case GLFW_KEY_ESCAPE:
+				glfwSetWindowShouldClose(gameWindow, GL_TRUE);
+				break;
 
-		default:
-			break;
+			default:
+				break;
 		}
 	}
 }
 
+void Window::ProcessInput(GLFWwindow* window) {
+	auto cameraSpeed = 10.f * deltaTime;
+	bool mod = false;
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+		CamPos += cameraSpeed * CamLookAt;
+		mod = true;
+	}
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+		CamPos -= cameraSpeed * CamLookAt;
+		mod = true;
+	}
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+		CamPos -= glm::normalize(glm::cross(CamLookAt, CamUp)) * cameraSpeed;
+		mod = true;
+	}
+	if (glfwGetKey(window, GLFW_KEY_D)) {
+		CamPos += glm::normalize(glm::cross(CamLookAt, CamUp)) * cameraSpeed;
+		mod = true;
+	}
+
+	if (mod) {
+		V = glm::lookAt(CamPos, CamPos + CamLookAt, CamUp);
+	}
+}
+
 void Window::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {}
+
+bool firstMouse = true;
+
+void Window::MouseCallback(GLFWwindow* window, double xpos, double ypos) {
+
+	if (firstMouse) {
+		lastX = xpos;
+		lastY = ypos;
+		firstMouse = false;
+	}
+
+	float xoffset = xpos - lastX;
+	float yoffset = lastY - ypos; // reversed since y-coordinates range from bottom to top
+	lastX = xpos;
+	lastY = ypos;
+
+	float sensitivity = 2.4f * deltaTime;
+	xoffset *= sensitivity;
+	yoffset *= sensitivity;
+
+	yaw += xoffset;
+	pitch += yoffset;
+
+	if (pitch > 89.0f) {
+		pitch = 89.0f;
+	}
+	if (pitch < -89.0f) {
+		pitch = -89.0f;
+	}
+
+	glm::vec3 front;
+	front.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
+	front.y = sin(glm::radians(pitch));
+	front.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
+
+	CamLookAt = glm::normalize(front);
+	V = glm::lookAt(CamPos, CamPos + CamLookAt, CamUp);
+}
 
 void Window::ResizeCallback(GLFWwindow* window, int width, int height) {
 
@@ -158,8 +246,8 @@ void Window::ResizeCallback(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);
 
 	if (height > 0) {
-		P = glm::perspective(45.0f, (float)width / (float)height, 0.1f, 5000.0f);
-		V = glm::lookAt(CamPos, CamLookAt, CamUp);
+		P = glm::perspective(glm::radians(80.0f), (float)width / (float)height, 0.1f, 5000.0f);
+		V = glm::lookAt(CamPos, CamPos + CamLookAt, CamUp);
 	}
 
 }

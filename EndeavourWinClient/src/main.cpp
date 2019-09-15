@@ -5,7 +5,7 @@ int main() {
 		return -1;
 	}
 
-	Window::GenerateWindow(1366, 768, "EndeavourWinClient");
+	Window::GenerateWindow(1920, 1080, "EndeavourWinClient");
 
 	if (Window::SetupOpenGL()) {
 

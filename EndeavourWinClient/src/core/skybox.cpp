@@ -38,7 +38,7 @@ void Skybox::Draw(GLuint shaderProgram) {
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	
-	glm::mat4 modelview = Window::V * toWorld;
+	glm::mat4 modelview = glm::mat4(glm::mat3(Window::V)) * toWorld;
 	
 	uProjection = glGetUniformLocation(shaderProgram, "projection");
 	uModelview = glGetUniformLocation(shaderProgram, "modelview");

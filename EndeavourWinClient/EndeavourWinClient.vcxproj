@@ -128,7 +128,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\core\camera.cpp" />
     <ClCompile Include="src\core\cube.cpp" />
+    <ClCompile Include="src\core\player.cpp" />
     <ClCompile Include="src\core\skybox.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\core\window.cpp" />
@@ -142,8 +144,10 @@
     <None Include="src\shaders\skybox.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\core\camera.h" />
     <ClInclude Include="src\core\cube.h" />
     <ClInclude Include="src\core\node.h" />
+    <ClInclude Include="src\core\player.h" />
     <ClInclude Include="src\core\skybox.h" />
     <ClInclude Include="src\core\window.h" />
     <ClInclude Include="src\shaders\shader.h" />

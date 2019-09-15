@@ -24,8 +24,10 @@ private:
 	static void ErrorCallback(int error, const char* description);
 	static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+	static void MouseCallback(GLFWwindow* window, double xpos, double ypos);
 	static void ResizeCallback(GLFWwindow* window, int width, int height);
 	static void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
+	static void ProcessInput(GLFWwindow* window);
 	
 public:
 
